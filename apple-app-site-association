@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["K2U8KYG2LQ.EBP.TheLeague"],
+        "components": [
+          {
+            "/": "/u/*",
+            "comment": "Player profile share links (theleague://user/<UUID>)"
+          }
+        ]
+      }
+    ]
+  }
+}

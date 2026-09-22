@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forum Victorum</title>
+  <!--
+    Fallback page for profile share links (https://ennoboesenberg.github.io/u/<UUID>).
+
+    When the app is installed, iOS intercepts the universal link and opens
+    the app directly — this page is never seen. It only renders when the
+    recipient does NOT have the app: GitHub Pages has no file at /u/<UUID>,
+    so it serves this repo-root 404.html for any unmatched path. The script
+    pulls the profile ID out of the path and offers "Open in App" (custom
+    scheme) plus a "Get the App" App Store button.
+  -->
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center;
+      justify-content: center; font-family: -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0b1c33; color: #f5efe0; padding: 24px;
+    }
+    .card {
+      max-width: 380px; width: 100%; text-align: center;
+    }
+    h1 { font-size: 1.5rem; margin: 0 0 8px; }
+    p { opacity: 0.8; line-height: 1.4; margin: 0 0 24px; }
+    a.btn {
+      display: block; text-decoration: none; font-weight: 600;
+      padding: 14px 20px; border-radius: 14px; margin: 10px 0;
+    }
+    a.primary { background: #d9a441; color: #0b1c33; }
+    a.secondary { background: rgba(245,239,224,0.12); color: #f5efe0; }
+    .brand { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">Forum Victorum</div>
+    <h1>Add me as a friend</h1>
+    <p>Open this link in the Forum Victorum app to send a friend request. Don't have it yet? Get the app, then tap the link again.</p>
+    <a class="btn primary" id="store" href="#">Get the App</a>
+    <a class="btn secondary" id="open" href="#">Open in App</a>
+  </div>
+  <script>
+    // TODO: replace with the real App Store product URL once the app is
+    // public (App Store Connect → App → "View on App Store"), e.g.
+    // https://apps.apple.com/app/idXXXXXXXXXX . Until then this can point
+    // at a public TestFlight link.
+    var APP_STORE_URL = "https://apps.apple.com/app/forum-victorum/id000000000";
+
+    // Extract the profile UUID from /u/<UUID>.
+    var match = location.pathname.match(/\/u\/([0-9a-fA-F-]{36})/);
+    var id = match ? match[1] : null;
+
+    var store = document.getElementById("store");
+    store.href = APP_STORE_URL;
+
+    var open = document.getElementById("open");
+    if (id) {
+      open.href = "theleague://user/" + id;
+    } else {
+      // No valid id in the path — hide the deep-link button.
+      open.style.display = "none";
+    }
+  </script>
+</body>
+</html>
